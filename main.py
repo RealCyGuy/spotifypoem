@@ -1,3 +1,4 @@
+import random
 import re
 from typing import Optional
 
@@ -37,10 +38,11 @@ class SpotifyPoem:
             return result
 
         results = self.sp.search(f"track:{search}", limit=50)
-        while results:
+        ids = set()
+        while results and not ids:
             for item in results["tracks"]["items"]:
                 if sanitized == utils.sanitize(item["name"].lower()):
-                    return item["id"]
+                    ids.add(item["id"])
             if results["tracks"]["next"]:
                 results = self.sp.next(results["tracks"])
             elif " " not in search and results["tracks"]["offset"] < 900:
@@ -50,6 +52,8 @@ class SpotifyPoem:
                 )
             else:
                 results = None
+        if ids:
+            return random.choice(list(ids))
 
     def generate_tracks(self):
         tracks = []
