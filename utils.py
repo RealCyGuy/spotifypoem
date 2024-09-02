@@ -3,7 +3,7 @@ from itertools import zip_longest
 
 
 def sanitize(string: str) -> str:
-    return re.sub(r"\W", "", string.lower())
+    return re.sub(r"[^\wÀ-ú]", "", string.lower())
 
 
 def grouper(iterable, n):

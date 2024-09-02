@@ -21,7 +21,7 @@ class SpotifyPoem:
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
         with open("song.txt", encoding="utf-8") as f:
             if merge:
-                pattern = rf"\b{merge}\b|[A-Za-z]+(?:\'[a-z]+)?"
+                pattern = rf"\b{merge}\b|[A-Za-zÀ-ú]+(?:\'[a-z]+)?"
                 self.words = re.findall(pattern, f.read())
             else:
                 self.words = f.read().split()
